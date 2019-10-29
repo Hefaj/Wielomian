@@ -1,77 +1,41 @@
-﻿// Wielomian.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
-
-#include "pch.h"
+﻿#include "pch.h"
 #include <iostream>
-#include <time.h>
 
 #include "Wielomian.h"
 
-using namespace std;
-
-std::vector<float> RandVektor(size_t size = 3, int min = -5, int max = 5)
-{
-	std::vector<float> v;
-	int absMM = std::abs(min) + std::abs(max);
-
-
-	for (size_t i = 0; i < size; i++)
-	{
-		float n = std::rand() % (absMM * 10) / 10.0f - max;
-		if (!v.size() && !n)
-			i--;
-		else v.push_back(n);
-	}
-	std::cout << std::endl;
-	for (auto v_ : v)
-	{
-		std::cout << v_ << " ";
-	}
-	std::cout << std::endl;
-	return v;
-}
-
 int main()
 {
-	std::vector<float> v1, v2;
-	std::srand((unsigned int)time(NULL));
+	float t1[] = { -3, -4 };
+	float t2[] = { -3, -2 };
+	float t3[] = { 1, 2, 3 };
 
-	v1 = RandVektor(2);
-	v2 = RandVektor(2);
+	Wielomian <float> w1(t1, 2);
+	std::cout << "w1: " << w1 << std::endl;
 
-	// tworzenie wielomianow z wektorow
-	Wielomian w1(v1);
-	Wielomian w2(v2);
 
-	// tworzenie wielomianow z tablicy
-	float tab[] = { 1.0f,-5.0f,-0.4f,1.0f };
-	Wielomian w3(tab, 4);
+	Wielomian<float> w2(t2, 2);
+	std::cout << "w2: " << w2 << std::endl;
 
-	// tworzenie wielomianow z wielomianow
-	Wielomian w4(w1);
+	Wielomian<int> w3(3);
+	std::cout << "w3: " << w3 << std::endl;
 
-	// przeciazenie <<
-	std::cout << "\nw1:\n" << w1 << "\nw2:\n" << w2 << "\nw3:\n" << w3 << "\nw4:\n" << w4 << std::endl;
+	Wielomian<float> w4(w1);
+	std::cout << "w4: " << w4 << std::endl;
 
-	// przeciazenie operatorow matematycznych
-	std::cout << "\nw1 == w4?:\n" << (w1 == w4) << std::endl;
-	std::cout << "\nw1+w2:\n" << w1 + w2 << std::endl;
-	std::cout << "\nw1-w2:\n" << w1 - w2 << std::endl;
+	Wielomian<float> w5("-2,5x^4-4x^{3}-5");
+	std::cout << "w5: " << w5 << std::endl;
 
-	w1 += w2;
-	std::cout << "\nw1+=w2:\n" << w1 << std::endl;
-	std::cout << "\nw4:\n" << w4 << std::endl;
-	std::cout << "\nw4/2:\n" << w4 / 2 << std::endl;
+	std::vector<float> v;
+	v.push_back(4);
+	v.push_back(0);
+	v.push_back(7);
+	v.push_back(3);
 
-	std::cout << "\nw4 len:\n" << w4.size() << std::endl;
+	Wielomian<float> w6(v);
+	std::cout << "w6: " << w6 / 2 << std::endl;
 
-	w4[0] = 4.5f;
-	std::cout << "\nw4[0]=4.5 len:\nw4[0]=" << w4[0] << std::endl;
-
-	// tworzenie wielomianow z stringa
-
-	Wielomian w5("+7,5+3x^6-2.2x^{14}-1.2x^3-12,4x");
-	std::cout << "w5:" << w5 << std::endl;
+	Wielomian <float> w7(t3, 3);
+	std::cout << std::endl;
+	std::cout << "w1: " << w1 << std::endl;
+	std::cout << "w2: " << w2 << std::endl;
 }
-
-// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
-// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
